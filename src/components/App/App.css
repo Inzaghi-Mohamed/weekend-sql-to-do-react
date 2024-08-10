@@ -1,64 +1,84 @@
-.App {
-  text-align: center;
-}
 
-.App-header {
-  background-color: #222;
-  height: 70px;
-  padding: 20px;
-  color: white;
-}
-
-.App-title {
-  font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-body{
-  background-color: aqua;
-}
 h1{
   text-align: center;
-  color: blue;
+  color:white;
+  font-weight: bold;
 }
-ul{
+body{
+  background-color: blue;
+}
+/* Styles for Todo Container */
+.todo-container {
   display: flex;
-  gap: 10px;
+  flex-wrap: wrap; /* Allows items to wrap to the next line if they don't fit */
+  margin: 30px;
+  padding: 20px;
+  background-color: whitesmoke;
+  border-radius: 8px;
+  justify-content: center; /* Center the items horizontally */
 }
-li{ç
+
+ul {
+  display: flex;
+  flex-wrap: wrap; /* Allows list items to wrap */
+  padding: 0; /* Remove default padding */
+}
+
+li {
+  display: grid;
   list-style: none;
   background-color: black;
   border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 16px;
-  margin: 16px 0;
+  margin: 16px;
   max-width: 400px;
   font-family: Arial, sans-serif;
   color: white;
+  flex: 1 1 calc(33.333% - 32px); /* Adjust width and spacing */
+  box-sizing: border-box; /* Include padding and border in element's total width */
 }
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.buttons .edit-btn {
+  background-color: hsla(45, 100%, 51%, 0.72);
+}
+
+.buttons .edit-btn:hover {
+  background-color: hsla(45, 100%, 51%, 0.954);
+}
+
+.buttons .delete-btn {
+  background-color: red;
+}
+
+.buttons .delete-btn:hover {
+  background-color: hsla(0, 100%, 50%, 0.705);
+}
+
+/* Styles for Form */
 
 .form-container {
   width: 100%;
 }
 
 form {
-  width: 50%; 
-  margin: 0 auto; 
+  width: 50%;
+  margin: 0 auto;
   padding: 30px;
   background-color: blue;
   border: 1px solid #ccc;
   border-radius: 8px;
   color: white;
 }
-input{
+
+input {
   display: block;
   width: 100%;
   padding: 8px;
@@ -66,7 +86,8 @@ input{
   border-radius: 5px;
   outline: none;
 }
-button{
+
+button {
   background-color: green;
   color: white;
   border: none;
@@ -74,8 +95,14 @@ button{
   padding: 10px;
   text-align: center;
 }
-button:hover{
+
+button:hover {
   cursor: pointer;
   background-color: rgb(46, 140, 74);
+}
+legend {
+  font-size: 1.2em; 
+  font-weight: 600;
+  color: blue;
 
 }

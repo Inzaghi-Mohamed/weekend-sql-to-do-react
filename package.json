@@ -20,7 +20,7 @@
     "start": "node server/server.js",
     "build": "vite build",
     "client": "vite",
-    "server": "nodemon  --watch server server/server.js",
+    "server": "nodemon  --watch server/server.js",
     "test": "react-scripts test --env=jsdom"
   },
   "browserslist": {

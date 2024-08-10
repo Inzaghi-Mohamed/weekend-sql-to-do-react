@@ -6,11 +6,13 @@ function App () {
 
   // It's always good to set an initial value to be a "blank" value of the same type you expect.
   const [todoList, setTodoList] = useState([]);
+ 
 
   // This will help in POST
   const [newTodoTitle, setNewTodoTitle] = useState('');
   const [newTodoDescription, setNewTodoDescription] = useState('');
   const [newTodoPriority, setNewTodoPriority] = useState('');
+``
 
 
 
@@ -40,13 +42,15 @@ function App () {
   // End of GET
 
   const addTodo = (event) => {
-    // We hit submit in a form, so we need to stop the page refreshing
+    // When We hit submit button in a form, we need to stop the page from refreshing
     event.preventDefault();
 
     // We pack up our data
     const newTodo = {
-      name: newTodoTitle,
-      origin: newTodoDescription
+      title: newTodoTitle,
+      description: newTodoDescription,
+      priority: newTodoPriority
+      
     }
 
     // We send it to the server
@@ -54,7 +58,7 @@ function App () {
       .then((response) => {
         console.log(response);
 
-        // Clear out the inputs, for the next creature to be added.
+        // Clear out the inputs, for the next todo to be added.
         setNewTodoTitle('');
         setNewTodoDescription('');
         setNewTodoPriority('');
@@ -93,17 +97,34 @@ function App () {
       </form>
      </div>
 
-      <ul>
+    {/* Display TODO's below here! */}
+    <div className='todo-container'>
+    <ul>
         {todoList.map(
           function (todo) {
             // Every list item must have a unique key
             // This purely for react to be able to keep track of things behind the scenes.
             // We started out using creature.name, but once we introduced the server we can change it to
             // creature.id, which is guarenteed to be truely unique.
-            return ( <li key ={todo.id} ><p>{todo.title}</p>{todo.description}<p>{todo.priority}</p></li>);
+            return ( 
+            
+               <li key ={todo.id}>
+                <p><legend>Title:</legend><br></br> {todo.title}</p> 
+                <p> <legend>Description:</legend> <br></br>{todo.description}</p> 
+                <p><legend>Priority:</legend><br></br> {todo.priority}</p>
+            
+              <div className='buttons'>
+               <button className='edit-btn'>Edit</button>
+               <button>Save</button>
+              <button className='delete-btn'>Delete</button>
+             </div>
+            </li> 
+              
+            );
           }
         )}
       </ul>
+    </div>
     </div>
   );
 

@@ -27,6 +27,35 @@ router.get('/', (req, res) => {
 });
 
 // POST
+router.post('/',  (req, res) => {
+    const { title, description, priority } = req.body;
+   
+    if (isNaN(priority)) {
+        return res.status(400).send('Priority must be a number');
+      }
+
+    const queryText = `
+                      INSERT INTO "tasks" 
+                          ( "title", "description", "priority") 
+                      VALUES
+                          ($1, $2, $3);
+                      `;
+  // We use "$1, $2 and $3" for sanitation by Pg
+  // To avoid client messing with the DB
+  
+  
+   // We have PG fill in the SQl variables for us
+   pool.query(queryText, [title, description, priority])
+   .then(result => {
+       console.log('db insert response successful:', result);
+       res.sendStatus(201);
+   })
+   .catch(error => {
+       console.log('db insert response failed', error);
+       res.sendStatus(500);
+   });
+  
+  });
 
 // PUT
 
