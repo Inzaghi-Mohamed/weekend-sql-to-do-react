@@ -28,15 +28,12 @@ router.get('/', (req, res) => {
 
 // POST
 router.post('/',  (req, res) => {
-    const { title, description, priority } = req.body;
+    const { title, description, status } = req.body;
    
-    if (isNaN(priority)) {
-        return res.status(400).send('Priority must be a number');
-      }
 
     const queryText = `
                       INSERT INTO "tasks" 
-                          ( "title", "description", "priority") 
+                          ( "title", "description", "status") 
                       VALUES
                           ($1, $2, $3);
                       `;
@@ -45,7 +42,7 @@ router.post('/',  (req, res) => {
   
   
    // We have PG fill in the SQl variables for us
-   pool.query(queryText, [title, description, priority])
+   pool.query(queryText, [title, description, status])
    .then(result => {
        console.log('db insert response successful:', result);
        res.sendStatus(201);
@@ -57,8 +54,50 @@ router.post('/',  (req, res) => {
   
   });
 
-// PUT
-
 // DELETE
+
+router.delete('/:id', (req, res) => {
+    const taskId = req.params.id; // Extract the task ID from the URL parameters
+  
+    const queryText = 'DELETE FROM "tasks" WHERE "id" = $1;'; // SQL query to delete the task
+  
+    pool.query(queryText, [taskId])
+      .then((result) => {
+        if (result.rowCount === 0) {
+          // If no rows were affected, the task was not found
+          return res.status(404).json({ message: 'Task not found' });
+        }
+        res.status(200).json({ message: 'Task deleted successfully' });
+      })
+      .catch((error) => {
+        console.error(`Error executing query: ${queryText}`, error);
+        res.sendStatus(500); // Send a 500 status code for server errors
+      });
+  });
+
+  // PUT 
+
+  router.put('/:id', (req, res) => {
+    const taskId = req.params.id;
+    const { status } = req.body; // Expecting the status to be 'completed'
+    const queryText = `
+      UPDATE "tasks" 
+      SET "status" = $1 
+      WHERE "id" = $2;
+    `;
+    
+    pool.query(queryText, [status, taskId])
+      .then((result) => {
+        if (result.rowCount === 0) {
+          return res.status(404).json({ message: 'Task not found' });
+        }
+        res.status(200).json({ message: 'Task marked as completed' });
+      })
+      .catch((error) => {
+        console.error(`Error executing query: ${queryText}`, error);
+        res.sendStatus(500);
+      });
+  });
+  
 
 module.exports = router;

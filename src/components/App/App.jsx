@@ -11,8 +11,9 @@ function App () {
   // This will help in POST
   const [newTodoTitle, setNewTodoTitle] = useState('');
   const [newTodoDescription, setNewTodoDescription] = useState('');
-  const [newTodoPriority, setNewTodoPriority] = useState('');
-``
+  const [newTodoStatus, setNewTodoStatus] = useState('');
+
+
 
 
 
@@ -49,7 +50,7 @@ function App () {
     const newTodo = {
       title: newTodoTitle,
       description: newTodoDescription,
-      priority: newTodoPriority
+      status: newTodoStatus
       
     }
 
@@ -61,7 +62,7 @@ function App () {
         // Clear out the inputs, for the next todo to be added.
         setNewTodoTitle('');
         setNewTodoDescription('');
-        setNewTodoPriority('');
+        setNewTodoStatus('');
 
         // Fetch the updated list from the server
         fetchTodo();
@@ -70,7 +71,32 @@ function App () {
         console.log(error);
       })
   }
+  //End of POST
 
+  const deleteTodo = (id) => {
+    axios.delete(`/api/todo/${id}`)
+      .then((response) => {
+        console.log(response);
+        // Fetch the updated list from the server after deletion
+        fetchTodo();
+      })
+      .catch((error) => {
+        console.log('DELETE request was not successful', error);
+      });
+  };
+
+
+  // End of DELETE
+
+  const markAsCompleted = (id) => {
+    axios.put(`/api/todo/${id}`, { status: 'completed' })
+      .then(() => {
+        fetchTodo();
+      })
+      .catch((error) => {
+        console.log('PUT request was not successful', error);
+      });
+  };
   
   return (
     <div>
@@ -89,8 +115,8 @@ function App () {
         <label htmlFor="description">Description:</label> <br />
         <input id="description" onChange={(event) => setNewTodoDescription(event.target.value)} value={newTodoDescription} /> <br />
        
-        <label htmlFor="priority">Priority:</label> <br />
-        <input id="priority" onChange={(event) => setNewTodoPriority(event.target.value)} value={newTodoPriority} /> <br />
+        <label htmlFor="status">Status:</label> <br />
+        <input type='text' id="status" onChange={(event) => setNewTodoStatus(event.target.value)} value={newTodoStatus}></input> <br />
   
 
         <button type="submit">Add Todo</button>
@@ -111,12 +137,11 @@ function App () {
                <li key ={todo.id}>
                 <p><legend>Title:</legend><br></br> {todo.title}</p> 
                 <p> <legend>Description:</legend> <br></br>{todo.description}</p> 
-                <p><legend>Priority:</legend><br></br> {todo.priority}</p>
+                <p><legend>Status:</legend><br></br> {todo.status}</p>
             
               <div className='buttons'>
-               <button className='edit-btn'>Edit</button>
-               <button>Save</button>
-              <button className='delete-btn'>Delete</button>
+              <button onClick={() => markAsCompleted(todo.id)}>Complete</button>
+              <button className='delete-btn'onClick={() => deleteTodo(todo.id)}>Delete</button>
              </div>
             </li> 
               

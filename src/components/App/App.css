@@ -33,13 +33,12 @@ li {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 16px;
   margin: 16px;
-  max-width: 400px;
+  max-width: 450px;
   font-family: Arial, sans-serif;
   color: white;
   flex: 1 1 calc(33.333% - 32px); /* Adjust width and spacing */
   box-sizing: border-box; /* Include padding and border in element's total width */
 }
-
 .buttons {
   display: flex;
   justify-content: space-between;
