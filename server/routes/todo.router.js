@@ -78,26 +78,26 @@ router.delete('/:id', (req, res) => {
   // PUT 
 
   router.put('/:id', (req, res) => {
-    const taskId = req.params.id;
-    const { status } = req.body; // Expecting the status to be 'completed'
-    const queryText = `
-      UPDATE "tasks" 
-      SET "status" = $1 
-      WHERE "id" = $2;
-    `;
-    
-    pool.query(queryText, [status, taskId])
-      .then((result) => {
-        if (result.rowCount === 0) {
-          return res.status(404).json({ message: 'Task not found' });
-        }
-        res.status(200).json({ message: 'Task marked as completed' });
-      })
-      .catch((error) => {
-        console.error(`Error executing query: ${queryText}`, error);
-        res.sendStatus(500);
-      });
-  });
+  const taskId = req.params.id;
+  const { status } = req.body; // Expecting the status to be 'completed'
+  const queryText = `
+    UPDATE "tasks" 
+    SET "status" = $1 
+    WHERE "id" = $2;
+  `;
   
+  pool.query(queryText, [status, taskId])
+    .then((result) => {
+      if (result.rowCount === 0) {
+        return res.status(404).json({ message: 'Task not found' });
+      }
+      res.status(200).json({ message: 'Task marked as completed' });
+    })
+    .catch((error) => {
+      console.error(`Error executing query: ${queryText}`, error);
+      res.sendStatus(500);
+    });
+});
+
 
 module.exports = router;

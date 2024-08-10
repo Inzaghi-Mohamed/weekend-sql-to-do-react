@@ -13,3 +13,4 @@ SELECT * FROM "tasks";
 
 INSERT INTO tasks (title, description, status)
 VALUES ('Finish project', 'Complete the project report', 'Pending');
+

@@ -88,8 +88,9 @@ function App () {
 
   // End of DELETE
 
+
   const markAsCompleted = (id) => {
-    axios.put(`/api/todo/${id}`, { status: 'completed' })
+    axios.put(`/api/todo/${id}`, { status: 'Completed' })
       .then(() => {
         fetchTodo();
       })
@@ -97,6 +98,8 @@ function App () {
         console.log('PUT request was not successful', error);
       });
   };
+
+  // End of PUT
   
   return (
     <div>
@@ -116,7 +119,7 @@ function App () {
         <input id="description" onChange={(event) => setNewTodoDescription(event.target.value)} value={newTodoDescription} /> <br />
        
         <label htmlFor="status">Status:</label> <br />
-        <input type='text' id="status" onChange={(event) => setNewTodoStatus(event.target.value)} value={newTodoStatus}></input> <br />
+        <input type='text' id="status" onChange={(event) => setNewTodoStatus(event.target.value)} value={newTodoStatus} ></input> <br />
   
 
         <button type="submit">Add Todo</button>
@@ -137,7 +140,7 @@ function App () {
                <li key ={todo.id}>
                 <p><legend>Title:</legend><br></br> {todo.title}</p> 
                 <p> <legend>Description:</legend> <br></br>{todo.description}</p> 
-                <p><legend>Status:</legend><br></br> {todo.status}</p>
+                <p><legend>Status:</legend><br></br>{todo.status}</p>
             
               <div className='buttons'>
               <button onClick={() => markAsCompleted(todo.id)}>Complete</button>
