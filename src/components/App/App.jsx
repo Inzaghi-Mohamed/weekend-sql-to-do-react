@@ -1,12 +1,12 @@
 import {useState, useEffect} from 'react';
 import axios from 'axios';
 import './App.css'; 
+
 function App () {
 
 
   // It's always good to set an initial value to be a "blank" value of the same type you expect.
   const [todoList, setTodoList] = useState([]);
- 
 
   // This will help in POST
   const [newTodoTitle, setNewTodoTitle] = useState('');
@@ -136,6 +136,7 @@ function App () {
             // We started out using creature.name, but once we introduced the server we can change it to
             // creature.id, which is guarenteed to be truely unique.
             return ( 
+              
             
                <li key ={todo.id}>
                 <p><legend>Title:</legend><br></br> {todo.title}</p> 

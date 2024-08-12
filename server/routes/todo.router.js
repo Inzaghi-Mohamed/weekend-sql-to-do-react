@@ -10,6 +10,7 @@ router.get('/', (req, res) => {
     // How does the router file req data from DB
     let queryText = 'SELECT * FROM "tasks";'; // line of SQL code ? language to talk to the DB?
 
+    console.log (queryText); // 
     // Send that query to the DB (database)
     pool.query(queryText) // This line is asking the database for what we want!
         .then((result) => {
@@ -25,6 +26,8 @@ router.get('/', (req, res) => {
         });
 
 });
+
+
 
 // POST
 router.post('/',  (req, res) => {

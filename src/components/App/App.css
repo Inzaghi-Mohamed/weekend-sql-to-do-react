@@ -98,6 +98,7 @@ button {
 button:hover {
   cursor: pointer;
   background-color: rgb(46, 140, 74);
+  outline: 1px solid white;
 }
 legend {
   font-size: 1.2em; 
